@@ -1,0 +1,34 @@
+@startuml
+
+class WorkStation{
+    - Buffer<Component>
+
+    + WorkStation(Product)
+    - tryProduce():boolean
+    + run()
+}
+
+class Inspector{
+    -Buffer<Component>
+    -Buffer<Component>
+
+    - Buffer(cmp1:Component, cmp2:Component)
+
+    - getComponent()
+    - returnBufferToFeed():int
+    - feedBuffer()
+    + run()
+
+}
+
+enum Component
+enum Product
+
+class Buffer
+
+Buffer "1-2" -o "1" WorkStation
+Buffer "*" <- Inspector
+Component <- Inspector
+Product "1" <- "1" WorkStation
+
+@enduml
