@@ -22,7 +22,11 @@ class Inspector{
 }
 
 enum Component
-enum Product
+enum Product{
++ONE
++TWO
++THREE
+}
 
 class Buffer
 
