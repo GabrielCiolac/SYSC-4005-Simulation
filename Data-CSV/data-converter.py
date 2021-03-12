@@ -8,12 +8,11 @@ with open(fName,'r') as f:
     f.close()
 
 values = lines.splitlines()
-s = ''
+s = 'time\n'
 
 for val in values:
-    s = s + val.strip() + ','
+    s = s + val.strip() + '\n'
 
-s = s[:-2] #removes final coma
 print(s)
 
 with open(fName,'w') as f:
