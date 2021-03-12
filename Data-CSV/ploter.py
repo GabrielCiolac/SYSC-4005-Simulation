@@ -14,8 +14,9 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 
 # In[2]:
 
+fName = input('Enter File Name:')
 
-servinsp1 = pd.read_csv('servinsp1.csv')
+servinsp1 = pd.read_csv(fName)
 servinsp1_array = np.asarray(servinsp1['time'])
 
 
