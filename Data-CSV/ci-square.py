@@ -2,6 +2,8 @@ from scipy.stats import lognorm
 import math
 
 def log_normal(x:float,mu=0,sigma=1):
+    if(x == 0):
+        return 0
     sigma = math.sqrt(sigma)
     a = (math.log(x) - mu)/math.sqrt(2*sigma**2)
     p = 0.5 + 0.5*math.erf(a)
@@ -14,6 +16,8 @@ def read_csv(fName):
         f.close()
     return ln.splitlines()[1:]
 
+def log_normal_in_interval(mu,sigma,min,max):
+    return log_normal(max,mu,sigma) - log_normal(min,mu,sigma)
 '''
     Get the largest number in the data set
 '''
@@ -46,7 +50,7 @@ def create_csv(fName):
 
     csvName = csvName + '_table.csv'
     with open(csvName,'w') as f:
-        f.write('Interval,Expected,Actual,Expected Normalized Square of Difference')
+        f.write('Interval,Actual,Expected,Expected Normalized Square of Difference')
         f.close()
     return csvName
 
@@ -71,7 +75,7 @@ current = 0
 sum_of_differences = 0
 next_val = current + interval
 while True:
-    expected = log_normal(next_val,avg,sigma)
+    expected = log_normal_in_interval(avg,sigma,current,next_val)
     actual = density_in_interval(li,current,next_val)
     sum_of_differences = sum_of_differences + (pow(actual - expected,2)/expected)
     add_to_table(csvName,next_val,expected,actual,(pow(actual - expected,2)/expected))
