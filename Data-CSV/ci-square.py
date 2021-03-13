@@ -14,8 +14,11 @@ def read_csv(fName):
         f.close()
     return ln.splitlines()[1:]
 
+'''
+    Get the largest number in the data set
+'''
 def get_largest(ln):
-    largest = 0.01
+    largest = float(ln[0])
     for i in ln:
         current = float(i)
         if current > largest:
@@ -23,6 +26,9 @@ def get_largest(ln):
 
     return largest
 
+'''
+    Calculates the actual value from the given data
+'''
 def density_in_interval(ln, min, max):
     count = 0
 
