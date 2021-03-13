@@ -38,13 +38,35 @@ def density_in_interval(ln, min, max):
     
     return count/len(ln)
 
+'''
+    creates and overwrites csv
+'''
+def create_csv(fName):
+    csvName = fName[:-4]
 
-li = read_csv(input('file name: '))
+    csvName = csvName + '_table.csv'
+    with open(csvName,'w') as f:
+        f.write('Interval,Expected,Actual,Expected Normalized Square of Difference')
+        f.close()
+    return csvName
+
+def add_to_table(csvName,interval,expected,actual,dif):
+    with open(csvName,'a') as f:
+        f.write('\n'+str(interval)+','+str(expected)+','+str(actual)+','+str(dif))
+        f.close()
+
+def write_sum_to_end(csvName,sum):
+    with open(csvName,'a') as f:
+        f.write('\n\n\nSum,'+str(sum))
+        f.close()
+
+fName = input('file name: ')
+li = read_csv(fName)
 avg = float(input('Mu of distribution: '))
 sigma = float(input('Sigma of distribution: '))
 largest = get_largest(li)
 interval = largest / 25
-
+csvName = create_csv(fName)
 current = 0
 sum_of_differences = 0
 next_val = current + interval
@@ -52,10 +74,14 @@ while True:
     expected = log_normal(next_val,avg,sigma)
     actual = density_in_interval(li,current,next_val)
     sum_of_differences = sum_of_differences + (pow(actual - expected,2)/expected)
+    add_to_table(csvName,next_val,expected,actual,(pow(actual - expected,2)/expected))
     current = next_val
     next_val = next_val + interval
     if next_val > largest:
         break
+
+write_sum_to_end(csvName,sum_of_differences)
+
 print('Degrees of Freedom: '+str(24))
 print('Sum of chi: '+str(sum_of_differences))
 print('Reject Hyptothisis? ' + str(sum_of_differences > 36.4))
