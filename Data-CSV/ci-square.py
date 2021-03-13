@@ -52,7 +52,7 @@ def create_csv(fName):
 
 def add_to_table(csvName,interval,expected,actual,dif):
     with open(csvName,'a') as f:
-        f.write('\n'+str(interval)+','+str(expected)+','+str(actual)+','+str(dif))
+        f.write('\n'+str(interval)+','+str(actual)+','+str(expected)+','+str(dif))
         f.close()
 
 def write_sum_to_end(csvName,sum):
