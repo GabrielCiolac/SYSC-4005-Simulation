@@ -79,8 +79,8 @@ next_val = current + interval #sets the max of the bin
 while True:
     expected = log_normal_in_interval(avg,sigma,current,next_val) *300 #calculates expected value in the interval
     actual = density_in_interval(li,current,next_val) #gets the actual value in the interval
-    sum_of_differences = sum_of_differences + (pow(actual - expected,2)/expected) #calculates the expected normalized square of the difference, and adds it
-    add_to_table(csvName,next_val,expected,actual,(pow(actual - expected,2)/expected)) #adds above values to table
+    sum_of_differences = sum_of_differences + (pow(actual - expected,2)/(expected*300)) #calculates the expected normalized square of the difference, and adds it
+    add_to_table(csvName,next_val,expected,actual,(pow(actual - expected,2)/(expected*300))) #adds above values to table
     current = next_val #increments min of the bin
     next_val = next_val + interval #increments max of bin
     if current > largest: #decides if you're out of bounds of data
