@@ -81,7 +81,7 @@ while True:
     add_to_table(csvName,next_val,expected,actual,(pow(actual - expected,2)/expected))
     current = next_val
     next_val = next_val + interval
-    if next_val > largest:
+    if current > largest:
         break
 
 write_sum_to_end(csvName,sum_of_differences)
