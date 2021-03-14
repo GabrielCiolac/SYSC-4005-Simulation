@@ -88,7 +88,7 @@ while True:
 
 write_sum_to_end(csvName,sum_of_differences) #writes sum to the table
 
-print('Degrees of Freedom: '+str(24))
+print('Degrees of Freedom: '+str(22))
 print('Sum of chi: '+str(sum_of_differences))
-print('Reject Hyptothisis? ' + str(sum_of_differences > 36.4))
+print('Reject Hyptothisis? ' + str(sum_of_differences > 42.8))
 
