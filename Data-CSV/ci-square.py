@@ -40,7 +40,7 @@ def density_in_interval(ln, min, max):
         if float(i) > min and float(i) <= max:
             count = count + 1
     
-    return count/len(ln)
+    return count
 
 '''
     creates and overwrites csv
@@ -68,23 +68,25 @@ fName = input('file name: ')
 li = read_csv(fName)
 avg = float(input('Mu of distribution: '))
 sigma = float(input('Sigma of distribution: '))
-largest = get_largest(li)
-interval = largest / 25
 csvName = create_csv(fName)
-current = 0
-sum_of_differences = 0
-next_val = current + interval
+
+
+largest = get_largest(li) #gets largest value in dataset
+interval = largest / 25 #calculates bin size
+current = 0 #starts current at 0
+sum_of_differences = 0 #initializes sum of differences
+next_val = current + interval #sets the max of the bin
 while True:
-    expected = log_normal_in_interval(avg,sigma,current,next_val)
-    actual = density_in_interval(li,current,next_val)
-    sum_of_differences = sum_of_differences + (pow(actual - expected,2)/expected)
-    add_to_table(csvName,next_val,expected,actual,(pow(actual - expected,2)/expected))
-    current = next_val
-    next_val = next_val + interval
-    if current > largest:
+    expected = log_normal_in_interval(avg,sigma,current,next_val) *300 #calculates expected value in the interval
+    actual = density_in_interval(li,current,next_val) #gets the actual value in the interval
+    sum_of_differences = sum_of_differences + (pow(actual - expected,2)/expected) #calculates the expected normalized square of the difference, and adds it
+    add_to_table(csvName,next_val,expected,actual,(pow(actual - expected,2)/expected)) #adds above values to table
+    current = next_val #increments min of the bin
+    next_val = next_val + interval #increments max of bin
+    if current > largest: #decides if you're out of bounds of data
         break
 
-write_sum_to_end(csvName,sum_of_differences)
+write_sum_to_end(csvName,sum_of_differences) #writes sum to the table
 
 print('Degrees of Freedom: '+str(24))
 print('Sum of chi: '+str(sum_of_differences))
