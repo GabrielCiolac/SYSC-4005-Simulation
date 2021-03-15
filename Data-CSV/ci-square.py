@@ -17,7 +17,12 @@ def read_csv(fName):
     return ln.splitlines()[1:]
 
 def log_normal_in_interval(mu,sigma,min,max):
-    return (log_normal(max,mu,sigma) - log_normal(min,mu,sigma)) * 300
+    return (log_normal(max,mu,sigma) - log_normal(min,mu,sigma))
+
+
+def expected_val(mu,sigma,min,max):
+    return 300 * log_normal_in_interval(mu,sigma,min,max)
+
 '''
     Get the largest number in the data set
 '''
@@ -50,13 +55,13 @@ def create_csv(fName):
 
     csvName = csvName + '_table.csv'
     with open(csvName,'w') as f:
-        f.write('Interval,Actual,Expected,Expected Normalized Square of Difference')
+        f.write('Interval,P(X),Actual,Expected,Expected Normalized Square of Difference')
         f.close()
     return csvName
 
-def add_to_table(csvName,interval,expected,actual,dif):
+def add_to_table(csvName,interval,percentage,expected,actual,dif):
     with open(csvName,'a') as f:
-        f.write('\n'+str(interval)+','+str(actual)+','+str(expected)+','+str(dif))
+        f.write('\n'+str(interval)+','+str(percentage*100)+'%,'+str(actual)+','+str(expected)+','+str(dif))
         f.close()
 
 def write_sum_to_end(csvName,sum):
@@ -77,10 +82,10 @@ current = 0 #starts current at 0
 sum_of_differences = 0 #initializes sum of differences
 next_val = current + interval #sets the max of the bin
 while True:
-    expected = log_normal_in_interval(avg,sigma,current,next_val)#calculates expected value in the interval
+    expected = expected_val(avg,sigma,current,next_val)#calculates expected value in the interval
     actual = density_in_interval(li,current,next_val) #gets the actual value in the interval
     sum_of_differences = sum_of_differences + (pow(actual - expected,2)/expected) #calculates the expected normalized square of the difference, and adds it
-    add_to_table(csvName,next_val,expected,actual,(pow(actual - expected,2)/expected)) #adds above values to table
+    add_to_table(csvName,next_val,log_normal_in_interval(avg,sigma,current,next_val),expected,actual,(pow(actual - expected,2)/expected)) #adds above values to table
     current = next_val #increments min of the bin
     next_val = next_val + interval #increments max of bin
     if current > largest: #decides if you're out of bounds of data
@@ -90,5 +95,5 @@ write_sum_to_end(csvName,sum_of_differences) #writes sum to the table
 
 print('Degrees of Freedom: '+str(22))
 print('Sum of chi: '+str(sum_of_differences))
-print('Reject Hyptothisis? ' + str(sum_of_differences > 42.8))
+print('Reject Hyptothisis? ' + str(sum_of_differences > 33.9))
 
