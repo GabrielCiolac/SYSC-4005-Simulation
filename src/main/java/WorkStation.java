@@ -24,6 +24,7 @@ public class WorkStation implements Runnable{
     private void tryProduce(){
         for(int i = 0; i < buffers.size();i++){
             if(buffers.get(i).isEmpty()){
+                Thread.yield();
                 i = 0;
             }
         }
@@ -55,7 +56,7 @@ public class WorkStation implements Runnable{
 
     @Override
     public void run() {
-        Timer t = new Timer("Total Production Time");
+        Timer t = new Timer("Total Production Time For "+Configuration.PRODUCTION_TARGET+" Units");
         t.startTimer();
 
         while(produced < Configuration.PRODUCTION_TARGET){

@@ -10,13 +10,15 @@ public class Timer {
     }
 
     public void startTimer(){
+        if(this.currentStartTime != 0L)
+            return;
         this.currentStartTime = System.currentTimeMillis();
     }
 
     public void endTimer(){
         if(currentStartTime == 0L)
             return;
-        timeCounted += System.currentTimeMillis() - currentStartTime;
+        timeCounted += (System.currentTimeMillis() - currentStartTime);
     }
 
     public long getTime(){

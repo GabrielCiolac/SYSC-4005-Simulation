@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class Inspector implements Runnable{
     private LinkedList<Buffer> buffers;
     private HashSet<Component> components;
-    private Timer t = new Timer("Total Time Blocked");
+    private final Timer t = new Timer("Total Time Blocked");
 
     public Inspector(){
         this.buffers = new LinkedList<Buffer>();
@@ -24,7 +24,7 @@ public class Inspector implements Runnable{
         if(buffers.size() == 0)
             return null;
 
-        int index = (int) (Math.random() * (components.size() - 0));
+        int index = (int) (Math.random() * components.size());
 
         return (Component) components.toArray()[index];
     }
@@ -33,33 +33,32 @@ public class Inspector implements Runnable{
      * Scheduling Algorithm
      * @return
      */
-    private void deposit(Component c){
-        int smallestSize = 3;
-        int indexOfSmallest = 0;
+    private void tryDeposit(Component c){
+        int smallestSize = Configuration.BUFFER_CAPACITY;
+        int indexOfSmallest = -1;
 
-        while(smallestSize != 3) { //spin until you find a buffer
-            for (int i = 0; i < buffers.size(); i++) {
-                Buffer b = this.buffers.get(i);
-                if (b.getType() != c || b.isDone()){
-                    continue;//if buffer is not of type of component, ignore
-                }
-                else if (b.isEmpty()){
-                    b.put(c);//if buffer empty deposit
-                }
-
-
-
-                if (b.getSize() < smallestSize) { //if buffer size is smaller then smallest so far, record index
+        for (int i = 0; i < buffers.size(); i++) {
+            Buffer b = this.buffers.get(i);
+            if (b.getType() != c || b.isDone()){
+                continue;
+            }
+            else if (b.isEmpty()){
+                b.put(c);//if buffer empty deposit
+                t.endTimer();
+                return;
+            }
+            if (b.getSize() < smallestSize) { //if buffer size is smaller then smallest so far, record index
                     indexOfSmallest = i;
                     smallestSize = b.getSize();
                 }
             }
-            t.startTimer(); //only start the timer if blocked
-            Util.log("Blocked");
-        }
-        t.endTimer();
-        Buffer b = this.buffers.get(indexOfSmallest);//adds to smallest buffer
-        b.put(c);
+            if(indexOfSmallest != -1){
+                t.endTimer();
+                Buffer b = this.buffers.get(indexOfSmallest);//adds to smallest buffer
+                b.put(c);
+                return;
+            }
+            t.startTimer();
     }
 
     /**
@@ -67,8 +66,8 @@ public class Inspector implements Runnable{
      * @return
      */
     private boolean allDone(){
-        for(int i = 0; i < buffers.size();i++){
-            if(!buffers.get(i).isDone())
+        for(int i = 0; i < this.buffers.size();i++){
+            if(!this.buffers.get(i).isDone())
                 return false;
         }
         return true;
@@ -98,7 +97,7 @@ public class Inspector implements Runnable{
                 Util.log("Error Occurred Waiting");
             }
 
-             deposit(c);
+             tryDeposit(c);
         }
         Util.log(t.toString());
 
