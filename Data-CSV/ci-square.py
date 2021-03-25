@@ -21,7 +21,7 @@ def log_normal_in_interval(mu,sigma,min,max):
 
 
 def expected_val(mu,sigma,min,max):
-    return 300 * log_normal_in_interval(mu,sigma,min,max)
+    return 1000 * log_normal_in_interval(mu,sigma,min,max)
 
 '''
     Get the largest number in the data set
