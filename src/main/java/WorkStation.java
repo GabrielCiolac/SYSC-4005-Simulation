@@ -8,6 +8,7 @@ public class WorkStation implements Runnable{
     private LinkedList<Buffer> buffers;
     private double mu,sigma;
     private int produced = 0;
+    private Timer t = new Timer("Total Production Time For "+Configuration.PRODUCTION_TARGET+" Units");
 
 
     public WorkStation(double mu, double sigma){
@@ -35,11 +36,7 @@ public class WorkStation implements Runnable{
 
         long waitTime = (long) Util.get_x_of_log_normal(this.mu,this.sigma);
 
-        try {
-            Thread.sleep(waitTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        this.t.add(waitTime);
 
         //Util.log("Produced A Product");
         produced++;
@@ -56,7 +53,6 @@ public class WorkStation implements Runnable{
 
     @Override
     public void run() {
-        Timer t = new Timer("Total Production Time For "+Configuration.PRODUCTION_TARGET+" Units");
         t.startTimer();
 
         while(produced < Configuration.PRODUCTION_TARGET){

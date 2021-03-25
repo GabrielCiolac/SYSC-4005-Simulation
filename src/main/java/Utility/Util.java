@@ -94,7 +94,7 @@ public class Util {
     }
 
     /**
-     * Generates a random time given the parameters of a log normal distribution
+     * Generates a random time in seconds given the parameters of a log normal distribution
      * @param mu
      * @param sigma
      * @return
@@ -104,7 +104,7 @@ public class Util {
         double i;
         for(i = 0; Util.log_norm(i,mu,sigma) < probability;i+=0.001);
 
-        return i;
+        return i*1000;
     }
 
 }

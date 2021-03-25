@@ -22,11 +22,15 @@ public class Timer {
         currentStartTime = 0L;
     }
 
+    public void add(long time){
+        timeCounted = time + timeCounted;
+    }
+
     public long getTime(){
         return this.timeCounted;
     }
     public String toString(){
-        return name+": "+timeCounted+"ms";
+        return name+": "+(timeCounted/1000)+"minutes";
     }
 
 }

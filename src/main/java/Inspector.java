@@ -88,12 +88,7 @@ public class Inspector implements Runnable{
 
     private void waitForProduce(Component c){
         long waitTime = getWaitTime(c);
-        try {
-            Thread.sleep(waitTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Util.log("Error Occurred Waiting");
-        }
+        this.t.add(waitTime);
     }
 
 
