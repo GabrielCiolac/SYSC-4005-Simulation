@@ -18,7 +18,8 @@ public class Timer {
     public void endTimer(){
         if(currentStartTime == 0L)
             return;
-        timeCounted += (System.currentTimeMillis() - currentStartTime);
+        timeCounted = (System.currentTimeMillis() - currentStartTime) + timeCounted;
+        currentStartTime = 0L;
     }
 
     public long getTime(){

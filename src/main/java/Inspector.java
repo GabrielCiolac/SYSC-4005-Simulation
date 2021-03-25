@@ -43,8 +43,9 @@ public class Inspector implements Runnable{
                 continue;
             }
             else if (b.isEmpty()){
-                b.put(c);//if buffer empty deposit
                 t.endTimer();
+                waitForProduce(c);
+                b.put(c);//if buffer empty deposit
                 return;
             }
             if (b.getSize() < smallestSize) { //if buffer size is smaller then smallest so far, record index
@@ -55,6 +56,7 @@ public class Inspector implements Runnable{
             if(indexOfSmallest != -1){
                 t.endTimer();
                 Buffer b = this.buffers.get(indexOfSmallest);//adds to smallest buffer
+                waitForProduce(c);
                 b.put(c);
                 return;
             }
@@ -84,20 +86,22 @@ public class Inspector implements Runnable{
 
     }
 
+    private void waitForProduce(Component c){
+        long waitTime = getWaitTime(c);
+        try {
+            Thread.sleep(waitTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Util.log("Error Occurred Waiting");
+        }
+    }
+
 
     @Override
     public void run() {
         while(!allDone()){
             Component c = produceComponent();
-            long waitTime = getWaitTime(c);
-            try {
-                Thread.sleep(waitTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                Util.log("Error Occurred Waiting");
-            }
-
-             tryDeposit(c);
+            tryDeposit(c);
         }
         Util.log(t.toString());
 
