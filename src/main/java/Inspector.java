@@ -10,6 +10,7 @@ public class Inspector{
     private HashSet<Component> components;
     private final Timer blocked = new Timer("Total Time Blocked");
     private final Timer producing = new Timer("Time Spent Producing");
+    private Component inHand = null;
 
     public Inspector(){
         this.buffers = new LinkedList<Buffer>();
@@ -44,7 +45,6 @@ public class Inspector{
                 continue;
             }
             else if (b.isEmpty()){
-                waitForProduce(c);
                 b.put(c);//if buffer empty deposit
                 return true;
             }
@@ -55,23 +55,11 @@ public class Inspector{
             }
             if(indexOfSmallest != -1){
                 Buffer b = this.buffers.get(indexOfSmallest);//adds to smallest buffer
-                waitForProduce(c);
+
                 b.put(c);
                 return true;
             }
             return false;
-    }
-
-    /**
-     * Checks that all the buffers are done
-     * @return
-     */
-    private boolean allDone(){
-        for(int i = 0; i < this.buffers.size();i++){
-            if(!this.buffers.get(i).isDone())
-                return false;
-        }
-        return true;
     }
 
 
@@ -98,10 +86,18 @@ public class Inspector{
     }
     public void dutyCycle() {
         this.blocked.endTimer();
+        if(inHand == null){
+            inHand = produceComponent();
+            waitForProduce(inHand);
+        }
+
         if(!this.producing.waiting()){
             Component c = produceComponent();
             if(!tryDeposit(c)){
                 this.blocked.startTimer();
+            }
+            else{
+                this.blocked.endTimer();
             }
         }
     }

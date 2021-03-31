@@ -24,7 +24,7 @@ public class Timer {
     }
 
     public void add(long add){
-        this.timeCounted += add;
+        timeCounted = add + timeCounted;
     }
 
     public void waitFor(long time){

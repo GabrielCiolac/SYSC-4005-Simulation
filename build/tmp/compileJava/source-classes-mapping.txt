@@ -1,5 +1,5 @@
-Utility/Timer.java
- Utility.Timer
+WorkStation.java
+ WorkStation
 Buffer.java
  Buffer
 Component.java
@@ -8,9 +8,9 @@ Utility/Configuration.java
  Utility.Configuration
 Utility/Util.java
  Utility.Util
-WorkStation.java
- WorkStation
-Inspector.java
- Inspector
+Utility/Timer.java
+ Utility.Timer
 Launcher.java
  Launcher
+Inspector.java
+ Inspector

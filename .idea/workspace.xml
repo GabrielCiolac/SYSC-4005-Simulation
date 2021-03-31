@@ -13,13 +13,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Buffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Buffer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Inspector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Inspector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utility/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utility/Configuration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Utility/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utility/Timer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utility/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utility/Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WorkStation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WorkStation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +116,21 @@
           <url>file://$PROJECT_DIR$/src/main/java/Launcher.java</url>
           <line>45</line>
           <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Inspector.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Utility/Timer.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Utility/Timer.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
