@@ -5,10 +5,11 @@ import Utility.Util;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class Inspector implements Runnable{
+public class Inspector{
     private LinkedList<Buffer> buffers;
     private HashSet<Component> components;
-    private final Timer t = new Timer("Total Time Blocked");
+    private final Timer blocked = new Timer("Total Time Blocked");
+    private final Timer producing = new Timer("Time Spent Producing");
 
     public Inspector(){
         this.buffers = new LinkedList<Buffer>();
@@ -33,7 +34,7 @@ public class Inspector implements Runnable{
      * Scheduling Algorithm
      * @return
      */
-    private void tryDeposit(Component c){
+    private boolean tryDeposit(Component c){
         int smallestSize = Configuration.BUFFER_CAPACITY;
         int indexOfSmallest = -1;
 
@@ -43,24 +44,22 @@ public class Inspector implements Runnable{
                 continue;
             }
             else if (b.isEmpty()){
-                t.endTimer();
                 waitForProduce(c);
                 b.put(c);//if buffer empty deposit
-                return;
+                return true;
             }
-            if (b.getSize() < smallestSize) { //if buffer size is smaller then smallest so far, record index
+            if (!b.isFull() && b.getSize() <= smallestSize) { //if buffer size is smaller then smallest so far, record index
                     indexOfSmallest = i;
                     smallestSize = b.getSize();
                 }
             }
             if(indexOfSmallest != -1){
-                t.endTimer();
                 Buffer b = this.buffers.get(indexOfSmallest);//adds to smallest buffer
                 waitForProduce(c);
                 b.put(c);
-                return;
+                return true;
             }
-            t.startTimer();
+            return false;
     }
 
     /**
@@ -86,19 +85,24 @@ public class Inspector implements Runnable{
 
     }
 
+
     private void waitForProduce(Component c){
         long waitTime = getWaitTime(c);
-        this.t.add(waitTime);
+        this.producing.waitFor(waitTime);
+        this.producing.add(waitTime);
     }
 
-
-    @Override
-    public void run() {
-        while(!allDone()){
+    public void print(){
+        double percentage = (this.blocked.getTimeCounted()/(this.blocked.getTimeCounted() + this.producing.getTimeCounted()))*100;
+        System.out.println("Percentage of time spent blocked: "+percentage+"%");
+    }
+    public void dutyCycle() {
+        this.blocked.endTimer();
+        if(!this.producing.waiting()){
             Component c = produceComponent();
-            tryDeposit(c);
+            if(!tryDeposit(c)){
+                this.blocked.startTimer();
+            }
         }
-        Util.log(t.toString());
-
     }
 }

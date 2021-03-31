@@ -3,7 +3,6 @@ import Utility.*;
 public class Launcher {
 
     public static void main(String args[]){
-        Thread ws1,ws2,ws3,servinsp1,servinsp2;
 
         Buffer ws1c1,ws2c1,ws2c2,ws3c1,ws3c3;
 
@@ -32,22 +31,21 @@ public class Launcher {
         w3.addBuffer(ws3c3);
 
 
-        ws1 = new Thread(w1,"WorkStation1");
-        ws2 = new Thread(w2,"WorkStation2");
-        ws3 = new Thread(w3,"WorkStation3");
+        while(!ws1c1.isDone() || !ws2c1.isDone() || !ws3c1.isDone()){
+            w1.dutyCycle();
+            w2.dutyCycle();
+            w3.dutyCycle();
+            insp1.dutyCycle();
+            insp2.dutyCycle();
+            Configuration.clock++;
+        }
 
-        servinsp1 = new Thread(insp1,"Inspector1");
-        servinsp2 = new Thread(insp2,"Inspector2");
-
-        ws1.start();
-        ws2.start();
-        ws3.start();
-        servinsp1.start();
-        servinsp2.start();
-
-
-
-
+        long clock = Configuration.clock;
+        insp1.print();
+        insp2.print();
+        w1.print();
+        w2.print();
+        w3.print();
 
 
     }

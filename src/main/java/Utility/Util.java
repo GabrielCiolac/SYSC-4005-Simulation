@@ -9,33 +9,6 @@ public class Util {
 
 
 
-    public static boolean LOG = true;
-
-    /**
-     * Get the name of the current thread.
-     */
-    public static String getThreadName() {
-        return Thread.currentThread().getName();
-    }
-
-    /**
-     * Method to prepend to every print to the console.
-     * Displays what thread is currently printing.
-     */
-    public static String getThread() {
-        return "[THREAD=" + Util.getThreadName() + "] ";
-    }
-
-    /**
-     * Print log message.
-     * These have their thread pre-pended and are always
-     * printed.
-     */
-    public static void log(String msg) {
-        if (Util.LOG) {
-            System.out.println("[LOG]" + Util.getThread() + msg);
-        }
-    }
 
 
     /**
@@ -65,18 +38,6 @@ public class Util {
             return -ans;
     }
 
-    public static void printLiveThreads(){
-        Set<Thread> threads = Thread.getAllStackTraces().keySet();
-
-        for (Thread t : threads) {
-            String name = t.getName();
-            Thread.State state = t.getState();
-            int priority = t.getPriority();
-            String type = t.isDaemon() ? "Daemon" : "Normal";
-            System.out.printf("%-20s \t %s \t %d \t %s\n", name, state, priority, type);
-        }
-    }
-
     /**
      * Calculates cumulative log normal probability given  x
      * @param x
@@ -104,7 +65,7 @@ public class Util {
         double i;
         for(i = 0; Util.log_norm(i,mu,sigma) < probability;i+=0.001);
 
-        return i*1000;
+        return i*Configuration.SHIFT;//value obtained shifted to tenths of a minute
     }
 
 }

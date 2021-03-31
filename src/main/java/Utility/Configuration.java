@@ -2,7 +2,7 @@ package Utility;
 
 public class Configuration {
     public static final int BUFFER_CAPACITY=2;
-    public static final int PRODUCTION_TARGET = 1000;
+    public static final int PRODUCTION_TARGET = 10;
 
     public static final double SERVINSP1_MU = 2.03;
     public static final double SERVINSP1_SIGMA = 1.1;
@@ -17,4 +17,6 @@ public class Configuration {
     public static final double WS2_SIGMA = 1.7;
     public static final double WS3_MU = 1.8;
     public static final double WS3_SIGMA = 1.3;
+    public static final double SHIFT = 60000;
+    public static long clock = 0L;
 }

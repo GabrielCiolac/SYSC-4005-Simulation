@@ -15,21 +15,14 @@ public class Buffer {
     public boolean isEmpty(){
         return buffer.size() == 0;
     }
+    public boolean isFull(){return buffer.size() >= Configuration.BUFFER_CAPACITY;}
 
     /**
      * Adds a component to buffer
      * @param c
      */
-    public synchronized void put(Component c){
-        while(buffer.size() >= Configuration.BUFFER_CAPACITY){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                return;
-            }
-        }
+    public void put(Component c){
         buffer.add(c);
-        notifyAll();
     }
 
     public void setDone(){
@@ -47,17 +40,8 @@ public class Buffer {
      * Removes component from buffer
      * @return
      */
-    public synchronized Component get(){
-        while(buffer.size() == 0){
-            try{
-                wait();
-            } catch (InterruptedException ignored){
-
-            }
-        }
-        Component got = buffer.poll();
-        notifyAll();
-        return got;
+    public Component get(){
+        return buffer.poll();
     }
 
     public int getSize(){
