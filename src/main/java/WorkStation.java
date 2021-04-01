@@ -30,6 +30,7 @@ public class WorkStation{
                 return false;
         }
         producing = true;
+        t.waitFor((long)Util.get_x_of_log_normal(this.mu,this.sigma));
         return true;
     }
 
@@ -67,6 +68,7 @@ public class WorkStation{
         }
         if(!producing){
             canProduce();
+            return;
         }
         else if(producing && !this.t.waiting()){
             produce();

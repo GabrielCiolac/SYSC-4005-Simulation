@@ -29,13 +29,15 @@ public class Inspector{
 
         int index = (int) (Math.random() * components.size());
         Component c = (Component) components.toArray()[index];
+        return c;
+    }
 
+    public void removeFromPopulation(Component c){
         for(Buffer b: buffers){
-            if(b.getType() == c && !b.isDone())
-                return c;
+            if(!b.isDone() && b.getType() == c)
+                return;
         }
         components.remove(c);
-        return produceComponent();
     }
 
     /**
@@ -43,28 +45,20 @@ public class Inspector{
      * @return
      */
     private boolean tryDeposit(Component c){
-        Buffer canidate = null;
         for(Buffer b: this.buffers){
             if(b.isDone()){
                 buffers.remove(b);
+                removeFromPopulation(c);
                 return false;
             }
-            else if(b.isFull()){
+            else if(b.isFull() || b.getType() != c){
                 continue;
             }
-            else if(b.isEmpty()){
+            else if(b.isEmpty() ||b.getSize() == 1){
                 b.put(c);
                 return true;
             }
-            else if(canidate == null && b.getSize() == 1){
-                canidate = b;
-            }
         }
-        if(canidate != null){
-            canidate.put(c);
-            return true;
-        }
-
         return false;
     }
 
@@ -88,6 +82,8 @@ public class Inspector{
     public void print(){
         double percentage = (this.blocked.getTimeCounted()/(this.producing.getTimeCounted()))*100;
         System.out.println("Percentage of time spent blocked: "+percentage+"%");
+        //System.out.println("Total Time: "+this.producing.getTimeCounted());
+        //System.out.println("Total Time Blocked: "+this.blocked.getTimeCounted());
     }
 
     public void isDone(){
