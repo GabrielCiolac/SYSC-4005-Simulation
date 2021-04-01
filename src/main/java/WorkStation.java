@@ -24,14 +24,12 @@ public class WorkStation{
         buffers.add(b);
     }
 
-    private boolean tryProduce(){
-        for(int i = 0; i < buffers.size();i++){
-            if(buffers.get(i).isEmpty()){
+    private boolean canProduce(){
+        for(Buffer b: this.buffers){
+            if(b.isEmpty())
                 return false;
-            }
         }
-        long time = (long) Util.get_x_of_log_normal(this.mu,this.sigma);
-        t.waitFor(time);
+        producing = true;
         return true;
     }
 
@@ -39,14 +37,14 @@ public class WorkStation{
         for (Buffer buffer : buffers) {
             buffer.get();
         }
-        producing = false;
         produced++;
-        System.out.println("Produced: "+produced);
+        producing = false;
+        tryClosing();
     }
 
 
-    private void closeBuffers(){
-        if(this.produced <= Configuration.PRODUCTION_TARGET){
+    private void tryClosing(){
+        if(this.produced < Configuration.PRODUCTION_TARGET ){
             return;
         }
         for(Buffer b: buffers){
@@ -61,20 +59,19 @@ public class WorkStation{
     }
 
     public void dutyCycle() {
-        this.closeBuffers();
-        if(!done){
-            t.add(1L);
-        }
-        else{
+        if(done){
             return;
         }
+        else{
+            this.t.add(1L);
+        }
         if(!producing){
-           producing = tryProduce();
-           return;
+            canProduce();
         }
-        else if(!t.waiting()){
-            this.produce();
+        else if(producing && !this.t.waiting()){
+            produce();
         }
+
 
     }
 }

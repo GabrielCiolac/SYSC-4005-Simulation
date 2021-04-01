@@ -11,7 +11,7 @@ public class Inspector{
     private final Timer blocked = new Timer("Total Time Blocked");
     private final Timer producing = new Timer("Time Spent Producing");
     private Component inHand = null;
-    private int componentsProduced = 0;
+    private boolean done = false;
 
     public Inspector(){
         this.buffers = new LinkedList<Buffer>();
@@ -43,26 +43,25 @@ public class Inspector{
      * @return
      */
     private boolean tryDeposit(Component c){
-        int smallestSize = Configuration.BUFFER_CAPACITY;
-        int indexOfSmallest = -1;
-
-        for (int i = 0; i < buffers.size(); i++) {
-            Buffer b = this.buffers.get(i);
-            if (b.getType() != c || b.isDone()){
+        Buffer canidate = null;
+        for(Buffer b: this.buffers){
+            if(b.isDone()){
+                buffers.remove(b);
+                return false;
+            }
+            else if(b.isFull()){
                 continue;
             }
-            else if (b.isEmpty()){
-                b.put(c);//if buffer empty deposit
+            else if(b.isEmpty()){
+                b.put(c);
                 return true;
             }
-            if (!b.isFull() && b.getSize() < smallestSize) { //if buffer size is smaller then smallest so far, record index
-                    indexOfSmallest = i;
-                    smallestSize = b.getSize();
+            else if(canidate == null && b.getSize() == 1){
+                canidate = b;
             }
         }
-        if(indexOfSmallest != -1){
-            Buffer b = this.buffers.get(indexOfSmallest);//adds to smallest buffer
-            b.put(c);
+        if(canidate != null){
+            canidate.put(c);
             return true;
         }
 
@@ -91,31 +90,29 @@ public class Inspector{
         System.out.println("Percentage of time spent blocked: "+percentage+"%");
     }
 
-    public boolean allDone(){
+    public void isDone(){
         for(Buffer b: buffers)
             if(!b.isDone())
-                return false;
-        return true;
+                return;
+        done = true;
     }
+
     public void dutyCycle() {
-        if(allDone())
+        if(done)
             return;
-        else{
-            this.producing.add(1L);
+        this.producing.add(1L);
+        if(inHand == null) {
+            inHand = produceComponent();
+            waitForProduce(inHand);
+            return; //started producing in this tick, can return
         }
-
-        if(this.inHand == null){
-            this.inHand = produceComponent();
-            this.waitForProduce(inHand);
-        }
-
         if(!this.producing.waiting()){
-            if(!tryDeposit(inHand)){
-                this.blocked.add(1L);
+            if(tryDeposit(inHand)){
+                inHand = null;
+                isDone();
             }
             else{
-                inHand = null;
-                componentsProduced++;
+                this.blocked.add(1L);
             }
         }
     }
