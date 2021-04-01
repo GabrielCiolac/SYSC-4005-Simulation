@@ -5,6 +5,9 @@ import Utility.Util;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+/**
+ * Producer
+ */
 public class Inspector{
     private LinkedList<Buffer> buffers;
     private HashSet<Component> components;

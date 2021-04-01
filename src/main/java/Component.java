@@ -1,5 +1,5 @@
 /**
- * This Enum is kinda useless but whatever
+ * This Enum is kinda useless
  */
 public enum Component {
     ONE,
