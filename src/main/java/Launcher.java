@@ -32,19 +32,25 @@ public class Launcher {
 
 
         while(!ws1c1.isDone() || !ws2c1.isDone() || !ws3c1.isDone()){
+            insp1.dutyCycle();
+            insp2.dutyCycle();
             w1.dutyCycle();
             w2.dutyCycle();
             w3.dutyCycle();
-            insp1.dutyCycle();
-            insp2.dutyCycle();
             Configuration.clock++;
+
         }
 
         long clock = Configuration.clock;
+        System.out.print("INSP1 ");
         insp1.print();
+        System.out.print("INSP2 ");
         insp2.print();
+        System.out.print("WS1 ");
         w1.print();
+        System.out.print("WS2 ");
         w2.print();
+        System.out.print("WS3 ");
         w3.print();
 
 

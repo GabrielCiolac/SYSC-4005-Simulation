@@ -10,6 +10,7 @@ public class WorkStation{
     private int produced = 0;
     private Timer t = new Timer("Total Production Time For "+Configuration.PRODUCTION_TARGET+" Units");
     private boolean done = false;
+    private boolean producing = false;
 
 
     public WorkStation(double mu, double sigma){
@@ -23,19 +24,24 @@ public class WorkStation{
         buffers.add(b);
     }
 
-    private void tryProduce(){
+    private boolean tryProduce(){
         for(int i = 0; i < buffers.size();i++){
             if(buffers.get(i).isEmpty()){
-                return;
+                return false;
             }
         }
+        long time = (long) Util.get_x_of_log_normal(this.mu,this.sigma);
+        t.waitFor(time);
+        return true;
+    }
 
+    private void produce(){
         for (Buffer buffer : buffers) {
             buffer.get();
         }
-
-        t.waitFor((long) Util.get_x_of_log_normal(this.mu,this.sigma));
+        producing = false;
         produced++;
+        System.out.println("Produced: "+produced);
     }
 
 
@@ -55,13 +61,19 @@ public class WorkStation{
     }
 
     public void dutyCycle() {
-        t.startTimer();
-        if(!done && !t.waiting()){
-            this.tryProduce();
-            this.closeBuffers();
+        this.closeBuffers();
+        if(!done){
+            t.add(1L);
         }
-        if(done){
-            t.endTimer();
+        else{
+            return;
+        }
+        if(!producing){
+           producing = tryProduce();
+           return;
+        }
+        else if(!t.waiting()){
+            this.produce();
         }
 
     }

@@ -11,6 +11,7 @@ public class Inspector{
     private final Timer blocked = new Timer("Total Time Blocked");
     private final Timer producing = new Timer("Time Spent Producing");
     private Component inHand = null;
+    private int componentsProduced = 0;
 
     public Inspector(){
         this.buffers = new LinkedList<Buffer>();
@@ -27,8 +28,14 @@ public class Inspector{
             return null;
 
         int index = (int) (Math.random() * components.size());
+        Component c = (Component) components.toArray()[index];
 
-        return (Component) components.toArray()[index];
+        for(Buffer b: buffers){
+            if(b.getType() == c && !b.isDone())
+                return c;
+        }
+        components.remove(c);
+        return produceComponent();
     }
 
     /**
@@ -48,18 +55,18 @@ public class Inspector{
                 b.put(c);//if buffer empty deposit
                 return true;
             }
-            if (!b.isFull() && b.getSize() <= smallestSize) { //if buffer size is smaller then smallest so far, record index
+            if (!b.isFull() && b.getSize() < smallestSize) { //if buffer size is smaller then smallest so far, record index
                     indexOfSmallest = i;
                     smallestSize = b.getSize();
-                }
             }
-            if(indexOfSmallest != -1){
-                Buffer b = this.buffers.get(indexOfSmallest);//adds to smallest buffer
+        }
+        if(indexOfSmallest != -1){
+            Buffer b = this.buffers.get(indexOfSmallest);//adds to smallest buffer
+            b.put(c);
+            return true;
+        }
 
-                b.put(c);
-                return true;
-            }
-            return false;
+        return false;
     }
 
 
@@ -77,27 +84,38 @@ public class Inspector{
     private void waitForProduce(Component c){
         long waitTime = getWaitTime(c);
         this.producing.waitFor(waitTime);
-        this.producing.add(waitTime);
     }
 
     public void print(){
-        double percentage = (this.blocked.getTimeCounted()/(this.blocked.getTimeCounted() + this.producing.getTimeCounted()))*100;
+        double percentage = (this.blocked.getTimeCounted()/(this.producing.getTimeCounted()))*100;
         System.out.println("Percentage of time spent blocked: "+percentage+"%");
     }
+
+    public boolean allDone(){
+        for(Buffer b: buffers)
+            if(!b.isDone())
+                return false;
+        return true;
+    }
     public void dutyCycle() {
-        this.blocked.endTimer();
-        if(inHand == null){
-            inHand = produceComponent();
-            waitForProduce(inHand);
+        if(allDone())
+            return;
+        else{
+            this.producing.add(1L);
+        }
+
+        if(this.inHand == null){
+            this.inHand = produceComponent();
+            this.waitForProduce(inHand);
         }
 
         if(!this.producing.waiting()){
-            Component c = produceComponent();
-            if(!tryDeposit(c)){
-                this.blocked.startTimer();
+            if(!tryDeposit(inHand)){
+                this.blocked.add(1L);
             }
             else{
-                this.blocked.endTimer();
+                inHand = null;
+                componentsProduced++;
             }
         }
     }

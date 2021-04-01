@@ -14,7 +14,11 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Inspector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Inspector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utility/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utility/Configuration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Utility/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utility/Timer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utility/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utility/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/WorkStation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WorkStation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,15 +62,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -91,6 +93,7 @@
       <workItem from="1616695447033" duration="2753000" />
       <workItem from="1616700768753" duration="1022000" />
       <workItem from="1616703018568" duration="2306000" />
+      <workItem from="1617230092942" duration="10021000" />
     </task>
     <servers />
   </component>
@@ -113,24 +116,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Launcher.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/src/main/java/Inspector.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Inspector.java</url>
-          <line>83</line>
-          <option name="timeStamp" value="30" />
+          <line>37</line>
+          <option name="timeStamp" value="102" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Utility/Timer.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Utility/Timer.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="34" />
+          <url>file://$PROJECT_DIR$/src/main/java/Inspector.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="104" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

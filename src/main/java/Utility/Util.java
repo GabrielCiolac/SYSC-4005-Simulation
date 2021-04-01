@@ -65,6 +65,8 @@ public class Util {
         double i;
         for(i = 0; Util.log_norm(i,mu,sigma) < probability;i+=0.001);
 
+        if(i > 100)
+            i = 100;
         return i*Configuration.SHIFT;//value obtained shifted to tenths of a minute
     }
 
