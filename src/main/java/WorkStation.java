@@ -30,7 +30,8 @@ public class WorkStation{
                 return false;
         }
         producing = true;
-        t.waitFor((long)Util.get_x_of_log_normal(this.mu,this.sigma));
+        long wait = (long)Util.get_x_of_log_normal(this.mu,this.sigma);
+        t.waitFor(wait);
         return true;
     }
 
@@ -56,16 +57,13 @@ public class WorkStation{
     }
 
     public void print(){
-        System.out.println(t.toString());
+        double throughput = t.getTimeCounted()/produced;
+        System.out.println("Through put "+throughput+" ticks/unit");
     }
 
     public void dutyCycle() {
-        if(done){
-            return;
-        }
-        else{
-            this.t.add(1L);
-        }
+        this.t.add(1L);
+
         if(!producing){
             canProduce();
             return;
