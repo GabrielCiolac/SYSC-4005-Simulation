@@ -37,24 +37,9 @@ public class Inspector{
     private Component produceComponent(){
         if(buffers.size() == 0)
             return null;
-
         int index = (int) (Math.random() * components.size());
         Component c = (Component) components.toArray()[index];
         return c;
-    }
-
-    /**
-     * When no more buffers of a component type exist
-     * That component type is removed from the calling population to prevent blocking
-     * @param c
-     */
-    public void removeFromPopulation(Component c){
-        for(Buffer b: buffers){
-            if(!b.isDone() && b.getType() == c)//if buffer is not done and is type component, remove
-                return;
-        }
-        inHand = null;
-        components.remove(c);
     }
 
     /**
@@ -64,16 +49,14 @@ public class Inspector{
     private boolean tryDeposit(Component c){
         Buffer candidate = null; //for buffers with 1 entry
         for(Buffer b: this.buffers){ //checks all buffers
-            if(b.isFull() || b.getType() != c){ //if the buffer is full or is not of type component, continue
+            if(b.isFull() || b.getType() != c) //if the buffer is full or is not of type component, continue
                 continue;
-            }
             else if(b.isEmpty()){ //if buffer is empty
                 b.put(c);
                 return true;
             }
-            else if(candidate == null && b.getSize() == 1){ //if no candidate yet, and size is 1
+            else if(candidate == null && b.getSize() == 1) //if no candidate yet, and size is 1
                 candidate = b;//make candidate, this insures 1->3 priority
-            }
         }
         if(candidate != null){ //if there is a candidate
             candidate.put(c);
@@ -114,8 +97,6 @@ public class Inspector{
     public void print(){
         double percentage = (this.blocked.getTimeCounted()/(this.producing.getTimeCounted()))*100;
         System.out.println("Percentage of time spent blocked: "+percentage+"%");
-        //System.out.println("Total Time: "+this.producing.getTimeCounted());
-        //System.out.println("Total Time Blocked: "+this.blocked.getTimeCounted());
     }
 
     /**
@@ -136,12 +117,10 @@ public class Inspector{
             return; //started producing in this tick, can return
         }
         if(!this.producing.waiting()){ //if you are not waiting to produce something
-            if(tryDeposit(inHand)){ //try to deposit what's in your hand
+            if(tryDeposit(inHand)) //try to deposit what's in your hand
                 inHand = null; //if you were able to, set inHand to null
-            }
-            else{
+            else
                 this.blocked.add(1L);//if you aren't waiting and you were unable to deposit, you were blocked
-            }
         }
         isDone();//check to see if you can set done flag
     }

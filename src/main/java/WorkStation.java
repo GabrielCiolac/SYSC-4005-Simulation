@@ -49,9 +49,8 @@ public class WorkStation{
      * Produces by removing a component from each buffer
      */
     private void produce(){
-        for (Buffer buffer : buffers) {
+        for (Buffer buffer : buffers)
             buffer.get();
-        }
         produced++;//adds to production count
         producing = false;//unsets producing flag
         tryClosing();//tries to flag buffers as done
@@ -62,12 +61,10 @@ public class WorkStation{
      * This tries to flag the buffers as done
      */
     private void tryClosing(){
-        if(this.produced < Configuration.PRODUCTION_TARGET ){
+        if(this.produced < Configuration.PRODUCTION_TARGET )
             return; //if you are bellow the production target return
-        }
-        for(Buffer b: buffers){
+        for(Buffer b: buffers)
             b.setDone(); //otherwise mark each buffer as done
-        }
     }
 
     /**
@@ -84,13 +81,9 @@ public class WorkStation{
     public void dutyCycle() {
         this.t.add(1L); //add 1 second to production time
 
-        if(!producing){ //if not producing
+        if(!producing)//if not producing
             canProduce(); //check if you can produce
-        }
-        else if(!this.t.waiting()){ //if producing and not waiting
+        else if(!this.t.waiting())//if producing and not waiting
             produce();
-        }
-
-
     }
 }
