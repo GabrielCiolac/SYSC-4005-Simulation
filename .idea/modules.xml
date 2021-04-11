@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/SYSC-4005-Simulation.iml" filepath="$PROJECT_DIR$/.idea/SYSC-4005-Simulation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SYSC-4005-Simulation.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SYSC-4005-Simulation.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SYSC-4005-Simulation.test.iml" filepath="$PROJECT_DIR$/.idea/modules/SYSC-4005-Simulation.test.iml" />
+    </modules>
+  </component>
+</project>

@@ -21,18 +21,21 @@ class Inspector{
 
 }
 
-enum Component
+enum Component{
++ONE
++TWO
++THREE
+}
 enum Product{
 +ONE
 +TWO
 +THREE
 }
 
-class Buffer
 
-Buffer "1-2" -o "1" WorkStation
-Buffer "*" <- Inspector
-Component <- Inspector
+
+Component <- Inspector: creates
 Product "1" <- "1" WorkStation
+WorkStation ..> Component: uses
 
 @enduml

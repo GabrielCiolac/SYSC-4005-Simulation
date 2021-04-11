@@ -3,7 +3,7 @@ plugins {
     id 'idea'
 }
 
-group 'org.sysc4005'
+group 'org.SYSC4005'
 version '1.0-SNAPSHOT'
 
 repositories {
