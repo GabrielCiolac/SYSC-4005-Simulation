@@ -1,16 +1,16 @@
 Utility/Util.java
  Utility.Util
-Component.java
- Component
-Utility/Configuration.java
- Utility.Configuration
-Launcher.java
- Launcher
 Utility/Timer.java
  Utility.Timer
 WorkStation.java
  WorkStation
+Utility/Configuration.java
+ Utility.Configuration
 Buffer.java
  Buffer
+Component.java
+ Component
+Launcher.java
+ Launcher
 Inspector.java
  Inspector

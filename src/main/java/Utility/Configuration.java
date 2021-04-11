@@ -2,7 +2,7 @@ package Utility;
 
 public class Configuration {
     public static final int BUFFER_CAPACITY=2;
-    public static final int PRODUCTION_TARGET = 100;
+    public static final int PRODUCTION_TARGET = 69;
 
     public static final double SERVINSP1_MU = 2.03;
     public static final double SERVINSP1_SIGMA = 1.1;

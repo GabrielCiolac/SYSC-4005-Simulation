@@ -2,6 +2,7 @@ import Utility.Configuration;
 import Utility.Timer;
 import Utility.Util;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -15,6 +16,7 @@ public class Inspector{
     private final Timer producing = new Timer("Time Spent Producing");
     private Component inHand = null;
     private boolean done = false;
+    private final LinkedList<Double> percentageList = new LinkedList<Double>();
 
     public Inspector(){
         this.buffers = new LinkedList<Buffer>();
@@ -34,7 +36,7 @@ public class Inspector{
      * Gets a component from the calling population
      * @return
      */
-    private Component produceComponent(){
+    private Component grabComponent(){
         if(buffers.size() == 0)
             return null;
         int index = (int) (Math.random() * components.size());
@@ -55,9 +57,12 @@ public class Inspector{
                 b.put(c);
                 return true;
             }
+
             else if(candidate == null && b.getSize() == 1) //if no candidate yet, and size is 1
                 candidate = b;//make candidate, this insures 1->3 priority
+
         }
+
         if(candidate != null){ //if there is a candidate
             candidate.put(c);
             return true;
@@ -96,32 +101,46 @@ public class Inspector{
      */
     public void print(){
         double percentage = (this.blocked.getTimeCounted()/(this.producing.getTimeCounted()))*100;
-        System.out.println("Percentage of time spent blocked: "+percentage+"%");
-    }
+        //System.out.println("Percentage of time spent blocked: "+percentage+"%");
+        double sum=0;
 
-    /**
-     * Checks if all the buffers are done, if they are then sets the done flag
-     */
-    public void isDone(){
-        this.done = buffers.size() == 0;
-    }
+        if(percentageList.size() == 0)
+            percentageList.add(0D);
 
+        for(double d: percentageList){
+            sum += d;
+        }
+
+        double average = sum/percentageList.size();
+
+        double sumOfSquare = 0;
+        for (double d: percentageList){
+            sumOfSquare = Math.pow(d - average,2);
+        }
+
+        double sd = Math.sqrt(sumOfSquare/percentageList.size());
+
+        System.out.println("Average Time Blocked: "+average+"%");
+        System.out.println("Standard Deviation: "+sd+"%");
+    }
     /**
      * Called by the launcher on every tick
      */
     public void dutyCycle() {
         this.producing.add(1L);//increment the time spent producing
         if(inHand == null) {//if you have no component in hand
-            inHand = produceComponent(); //grab a component from the calling population
+            inHand = grabComponent(); //grab a component from the calling population
             waitForInspection(inHand); //set the inspection timer
             return; //started producing in this tick, can return
         }
         if(!this.producing.waiting()){ //if you are not waiting to produce something
-            if(tryDeposit(inHand)) //try to deposit what's in your hand
+            if(tryDeposit(inHand)) { //try to deposit what's in your hand
+                double percentage = (this.blocked.getTimeCounted()/(this.producing.getTimeCounted()))*100;
+                percentageList.add(percentage);
                 inHand = null; //if you were able to, set inHand to null
+            }
             else
                 this.blocked.add(1L);//if you aren't waiting and you were unable to deposit, you were blocked
         }
-        isDone();//check to see if you can set done flag
     }
 }

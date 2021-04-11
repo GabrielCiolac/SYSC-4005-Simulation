@@ -13,6 +13,7 @@ public class WorkStation{
     private int produced = 0;
     private Timer t = new Timer("Total Production Time For "+Configuration.PRODUCTION_TARGET+" Units");
     private boolean producing = false;
+    private final LinkedList<Double> throughputList = new LinkedList<Double>();
 
 
     public WorkStation(double mu, double sigma){
@@ -54,6 +55,8 @@ public class WorkStation{
         produced++;//adds to production count
         producing = false;//unsets producing flag
         tryClosing();//tries to flag buffers as done
+        double throughput = t.getTimeCounted()/produced;
+        this.throughputList.add(throughput);
     }
 
 
@@ -72,7 +75,28 @@ public class WorkStation{
      */
     public void print(){
         double throughput = t.getTimeCounted()/produced;
-        System.out.println("Throughput "+throughput+" ticks/unit");
+        //System.out.println("Throughput "+throughput+" ticks/unit");
+
+        double sum=0;
+
+        if(throughputList.size() == 0)
+            throughputList.add(0D);
+
+        for(double d: throughputList){
+            sum += d;
+        }
+
+        double average = sum/throughputList.size();
+
+        double sumOfSquare = 0;
+        for (double d: throughputList){
+            sumOfSquare = Math.pow(d - average,2);
+        }
+
+        double sd = Math.sqrt(sumOfSquare/throughputList.size());
+
+        System.out.println("Average Production Time: "+average+"s");
+        System.out.println("Standard Deviation: "+sd+"s");
     }
 
     /**

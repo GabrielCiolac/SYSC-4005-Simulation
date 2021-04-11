@@ -19,9 +19,9 @@ public class Launcher {
         Inspector insp2 = new Inspector();
 
         //add buffers to inspectors
-        insp1.addBuffer(ws1c1);
-        insp1.addBuffer(ws2c1);
         insp1.addBuffer(ws3c1);
+        insp1.addBuffer(ws2c1);
+        insp1.addBuffer(ws1c1);
         insp2.addBuffer(ws2c2);
         insp2.addBuffer(ws3c3);
         //make workstation

@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d60abf13-20f8-4186-897c-2116642493d4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/InspectorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/WorkstationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
@@ -12,14 +14,11 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Buffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Buffer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Component.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Inspector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Inspector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Utility/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utility/Configuration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utility/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utility/Timer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/WorkStation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WorkStation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,6 +30,26 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="SYSC-4005-Simulation" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -53,6 +72,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SYSC4806" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
@@ -86,7 +106,10 @@
       <workItem from="1616703018568" duration="2306000" />
       <workItem from="1617230092942" duration="10263000" />
       <workItem from="1617248487395" duration="7735000" />
-      <workItem from="1617289299639" duration="4481000" />
+      <workItem from="1617289299639" duration="4951000" />
+      <workItem from="1617314728527" duration="5517000" />
+      <workItem from="1617376482630" duration="15000" />
+      <workItem from="1617936945988" duration="938000" />
     </task>
     <servers />
   </component>
