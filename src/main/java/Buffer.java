@@ -33,8 +33,11 @@ public class Buffer {
      * Adds a component to buffer
      * @param c
      */
-    public void put(Component c){
+    public boolean put(Component c){
+        if(c != this.type || this.isFull())
+            return false;
         buffer.add(c);
+        return true;
     }
 
     /**

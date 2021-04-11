@@ -35,7 +35,7 @@ public class WorkStation{
      * Checks if the workstation can produce by seeing that each buffer has something in it
      * @return
      */
-    private boolean canProduce(){
+    public boolean canProduce(){
         for(Buffer b: this.buffers){
             if(b.isEmpty())
                 return false; //if one of the buffers is empty return false
@@ -49,7 +49,7 @@ public class WorkStation{
     /**
      * Produces by removing a component from each buffer
      */
-    private void produce(){
+    public void produce(){
         for (Buffer buffer : buffers)
             buffer.get();
         produced++;//adds to production count
