@@ -1,5 +1,7 @@
 import Utility.*;
 
+import java.util.Scanner;
+
 public class Launcher {
 
     public static void main(String args[]){
@@ -19,9 +21,20 @@ public class Launcher {
         Inspector insp2 = new Inspector();
 
         //add buffers to inspectors
-        insp1.addBuffer(ws3c1);
-        insp1.addBuffer(ws2c1);
-        insp1.addBuffer(ws1c1);
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Which scheduling policy do you want: ");
+        System.out.println("1) Original");
+        System.out.println("2) Priority Inverted (WS3, WS2, WS1) are served in that order if all else is equal");
+        System.out.print("Selection: ");
+        if(scan.next().equals("1")){
+            insp1.addBuffer(ws1c1);
+            insp1.addBuffer(ws2c1);
+            insp1.addBuffer(ws3c1);
+        }else{
+            insp1.addBuffer(ws3c1);
+            insp1.addBuffer(ws2c1);
+            insp1.addBuffer(ws1c1);
+        }
         insp2.addBuffer(ws2c2);
         insp2.addBuffer(ws3c3);
         //make workstation

@@ -48,7 +48,7 @@ public class Inspector{
      * Scheduling Algorithm
      * @return
      */
-    private boolean tryDeposit(Component c){
+    public boolean tryDeposit(Component c){
         Buffer candidate = null; //for buffers with 1 entry
         for(Buffer b: this.buffers){ //checks all buffers
             if(b.isFull() || b.getType() != c) //if the buffer is full or is not of type component, continue
